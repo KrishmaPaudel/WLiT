@@ -2,10 +2,10 @@
 // 1. CONFIGURATION & API ENDPOINT
 // ============================================================================
 // DAY 1: Uses free public mock API (simulates writes, resets on page refresh)
-const API_URL = "https://jsonplaceholder.typicode.com/todos";
+// const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
 // DAY 2: Comment out the line above and uncomment below to connect to your Express server!
-// const API_URL = "http://localhost:3000/api/tasks";
+const API_URL = "http://localhost:3000/api/tasks";
 
 
 // ============================================================================
@@ -36,7 +36,7 @@ async function fetchTasks() {
   showError(null);    // Clear any previous error messages
 
   try {
-    // Step 2: Send HTTP GET request with query parameter (?_limit=6)
+    // Step 2: Send HTTP GET request with query parameter (?_limit=6) (get 6 datas only)
     const response = await fetch(`${API_URL}?_limit=6`);
 
     // CRITICAL: fetch() does NOT throw on 404/500 errors, so we check response.ok manually!
