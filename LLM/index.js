@@ -6,20 +6,11 @@ const ai= new GoogleGenAI({
     apiKey: process.env.GEMINI_APP_KEY,
 });
 
-//2/ make our first apoi call
-async function main(){
-    let noOfMcq=5;
-    let noOfOptions=4;
-    let topic="AI/ML"
-    const response= await ai.models.generateContent({
-        model: 'gemini-3.1-flash-lite',
-    
-        contents: `give me 5 ${noOfMcq} quiz questions related to ${topic} for a quiz competetion`,
-        config:{
-            systemInstructions: `You are a quiz generator. Create multiple choice questions . The questions should have ${noOfOptions} options. Also provide the answer. questions in 1,2,3... numbers and options in A,B,C,.... provide the answers of all the questions at the end of 5 questions together by specifying the question number`,
-            responseMimeType: 'application/json',
-            temperature: 2,
-            responseSchema: {
+
+let noOfMcq=5;
+let noOfOptions=4;
+let topic="AI/ML"
+const responseSchema={
                 type: 'object',
                 properties:{
                     questions:{
@@ -38,10 +29,27 @@ async function main(){
                     }
                 }
             }
-        },
+    const prompt=`give me 5 ${noOfMcq} quiz questions related to ${topic} for a quiz competetion`
+
+const configuration= {
+            systemInstructions: `You are a quiz generator. Create multiple choice questions . The questions should have ${noOfOptions} options. Also provide the answer. questions in 1,2,3... numbers and options in A,B,C,.... provide the answers of all the questions at the end of 5 questions together by specifying the question number`,
+            responseMimeType: 'application/json',
+            temperature: 2,
+            responseSchema: responseSchema
+        }
+
+//2/ make our first apoi call
+async function main(){
+    
+    const response= await ai.models.generateContent({
+        model: 'gemini-3.1-flash-lite',
+    
+        contents: prompt,
+        config: configuration
+        }
         
         
-    });
+    );
 
     // console.log("temperature: 2");
 //3/ Display the response
