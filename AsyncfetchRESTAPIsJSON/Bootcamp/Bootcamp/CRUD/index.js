@@ -20,7 +20,7 @@ app.get("/api/tasks", (req, res) => {
     return res.status(200).json(tasks.filter((t) => t.completed === isDone));
   }
   res.status(200).json(tasks);
-});
+}); 
 
 // ============================================================================
 // 2. READ ONE: GET /api/tasks/:id
